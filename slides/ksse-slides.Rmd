@@ -1,0 +1,150 @@
+---
+title: "단일대상 다층메타분석" 
+subtitle: "장애학생을 위한 가상조작물을 활용한 수학 중재"
+author: "신미경"
+institute: "West Texas A&M University"
+date: "2021년 12월 11일"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#450012",
+  secondary_color = "#eeeeee",
+  inverse_header_color = "#FFFFFF",
+  base_font_size = "20px",                                
+  code_font_size = "0.75rem",                             
+  header_font_google = google_font("sans serif"),   
+  text_font_google = google_font("Roboto"),
+  extra_css = list(
+      ".small" = list("font-size" = ".78rem"),                  # for smaller text when needed
+      ".big"  = list("font-size" = "1.2rem"),                   # for bigger text when needed  
+      ".small-code pre code" = list("font-size" = ".72rem"),    # small code
+      ".tiny-code pre code" = list("font-size" = ".6rem"),      # tiny code
+      "li" = list("padding" = "2px 0px 0px"),                   # more list padding
+      "table th, table td" = list("padding" = "4px")            # table cell padding
+  )
+)
+
+```
+
+### 목차
+
+* **단일대상 다층메타분석**의 필요성
+
+* 장애학생을 위한 **가상조작물을 활용한 수학 중재**의 필요성 
+
+* 단일대상 다층메타분석 **연구 방법과 적용 실제**   
+
+* **논의** 및 **미래연구를 위한 제언**
+
+.footnote[본 자료는 ]
+
+---
+
+### 단일대상 다층메타분석의 필요성
+
+- 단일대상 연구
+    - 대상자의 문제행동을 감소시키거나 바람직한 행동을 증진
+    - 개별(혹은 소집단)로 중재를 계획하고 실행함
+    - 연구설계를 통하여 체계적으로 실험 통제(내적 타당도)를 확인   
+
+- 다층(메타)분석
+    - 대상자별로 시간에 따른 행동 변화를 반복측정 
+    - 종단자료 분석을 통한 다층모형 분석 
+    - 위계적 다층자료 모형 설정 (메타분석)
+
+---
+
+### .center[위계적 다층자료 구조]
+
+.center[<img src="figures/fig1.png", width=800px height=400px>]
+
+---
+
+### 장애학생을 위한 가상조작물을 활용한 수학 중재의 필요성 
+
+.pull-left[
+예시: [재미난 분수](http://funfraction.net) http://funfraction.net
+  <img src="figures/fig2.png", width=600px height=400px>
+]
+.pull-right[
+
+ 가상조작물은 ...
+
+- 웹 등의 환경에서 작동되는 __역동적__인 시각적 모형 
+
+- 수학 교수 및 학습에 활용되는 __구조적__인 도식
+
+- 다양한 형태로 확장, 변환, 선택하여 사용 가능
+
+- 개념적인 수학 학습에 활용 
+
+- __상호작용__적이고 다양한 수학 학습 기회 제공  
+
+]
+
+---
+
+### 단일대상 다층메타분석 연구 방법과 적용 실제
+
+- [Shin 외(2021)](https://journals.sagepub.com/doi/abs/10.1177/00144029211007150)의 데이터를 재분석하여 예시로 활용함
+- 온라인 공개 데이터 https://doi.org/10.17605/OSF.IO/WVTXG
+
+```r
+library(xaringanthemer)
+style_duo_accent(
+primary_color = "#012169",     # Duke Navy Blue
+secondary_color = "#005587",   # Prussian Blue
+# style_mono_accent(
+# base_color = "#1c5253",
+header_font_google = google_font("Josefin Sans"),
+text_font_google = google_font("Montserrat", "300", "300i"),
+code_font_google = google_font("Fira Mono")
+)
+```  
+
+---
+class: center, middle
+Also note the very cool [**matching ggplot themes**](https://pkg.garrickadenbuie.com/xaringanthemer/index.html#matching-ggplot-themes)
+
+![](https://pkg.garrickadenbuie.com/xaringanthemer/reference/figures/index-theme_xaringan_demo-1.png)
+
+---
+
+# Styling with Apron & Descartes
+
+_avoiding "raw" HTML_
+
+- [Apron and Descartes documentation](https://story.xaprb.com/slides/adirondack/#1)
+    - [Slide layouts (**Apron**)](https://story.xaprb.com/slides/adirondack/#5)
+    - [Image & element position / colors (**Descartes**)](https://story.xaprb.com/slides/adirondack/#33)
+        - [descartes.less](https://github.com/xaprb/story/blob/master/static/css/descartes.less)
+
+    
+### AND
+
+- **Tachyons** -- classes to control formatting and CSS 
+    - [See XaringanExtra # tachyons](https://pkg.garrickadenbuie.com/xaringanExtra/#/tachyons)
+
+
+--
+
+In these cases you must be comfortable importing the appropriate CSS sheets and referencing them in the YAML header.  Not hard, but beyond the focus of this workshop.
+
+- [apron.css](https://github.com/xaprb/story/blob/master/static/css/apron.css)
+- [descartes.css](https://github.com/xaprb/story/blob/master/static/css/descartes.css)
+- [tachyons.min.css](https://raw.githubusercontent.com/xaprb/story/master/static/css/tachyons.min.css)
+
+
