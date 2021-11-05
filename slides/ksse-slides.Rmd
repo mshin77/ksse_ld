@@ -28,8 +28,8 @@ style_duo_accent(
   header_font_google = google_font("sans serif"),   
   text_font_google = google_font("Roboto"),
   extra_css = list(
-      ".small" = list("font-size" = ".78rem"),                  # for smaller text when needed
-      ".big"  = list("font-size" = "1.2rem"),                   # for bigger text when needed  
+      ".small" = list("font-size" = "1.5rem"),                  # for smaller text when needed
+      ".big"  = list("font-size" = "3rem"),                   # for bigger text when needed  
       ".small-code pre code" = list("font-size" = ".72rem"),    # small code
       ".tiny-code pre code" = list("font-size" = ".6rem"),      # tiny code
       "li" = list("padding" = "2px 0px 0px"),                   # more list padding
@@ -49,7 +49,7 @@ style_duo_accent(
 
 * **논의** 및 **미래연구를 위한 제언**
 
-.footnote[본 자료는 ]
+.footnote[본 자료는 https://github.com/mshin77/ksse_ld에서 다운로드 가능합니다.]
 
 ---
 
@@ -98,22 +98,76 @@ style_duo_accent(
 ---
 
 ### 단일대상 다층메타분석 연구 방법과 적용 실제
-
 - [Shin 외(2021)](https://journals.sagepub.com/doi/abs/10.1177/00144029211007150)의 데이터를 재분석하여 예시로 활용함
+
 - 온라인 공개 데이터 https://doi.org/10.17605/OSF.IO/WVTXG
 
-```r
-library(xaringanthemer)
-style_duo_accent(
-primary_color = "#012169",     # Duke Navy Blue
-secondary_color = "#005587",   # Prussian Blue
-# style_mono_accent(
-# base_color = "#1c5253",
-header_font_google = google_font("Josefin Sans"),
-text_font_google = google_font("Montserrat", "300", "300i"),
-code_font_google = google_font("Fira Mono")
-)
-```  
+- 연구 목적: 
+  - 단일대상 다층메타분석을 활용하여 장애학생을 위한 가상조작물을 활용한 수학 중재의 중재 및 조절 효과 분석
+
+- 연구 질문: 
+  - 장애학생을 위한 가상조작물을 활용한 수학 중재는 어떠한 즉시적인 평균 효과크기 및 변화 추이를 보이는가?
+  - 가상조작물을 활용한 수학 중재의 즉시적인 평균 효과크기는 학생 및 연구 관련 특성에 따라 어떻게 다른가?
+  - 가상조작물을 활용한 수학 중재의 변화 추이는 학생 및 연구 관련 특성에 따라 어떻게 다른가? 
+
+---
+
+### .center[연구 방법] 
+
+- 연구의 포함 기준: 
+  - 2000년부터 2020년까지 영어로 발표된 학위논문 및 학술지 논문
+  - 유치원, 초등학교, 중학교, 고등학교 장애학생을 대상으로한 연구
+  - 종속변인: 수학 정확도
+  - 독립변인: 가상조작물을 활용한 수학 중재
+  - 연구설계: 반전설계(기초선 포함), 대상자간 중다 기초선/중다간헐 설계, 기준변경 설계  
+
+- 자료 탐색: 온라인 [추가 자료 그림 1](https://journals.sagepub.com/doi/suppl/10.1177/00144029211007150) 참고: **총 35편 연구** 포함됨 
+
+- 자료 코딩: 
+  - 단일대상 데이터 추출:  GetData Graph Digitizer (GetData Graph Digitizer,
+2013) 웹 어플리케이션 활용 
+  - 학생 관련 변인 코딩: 성별, 학년, 장애명   
+  - 연구 관련 변인 코딩: 사전훈련 목적, 교수 방법, 개발자, 기기, 가상조작물 유형, 도식 모형
+  - 연구에 대한 질적 평가: 
+
+---
+
+### .center[분석을 위한 R 패키지 설치 및 불러오기]
+
+.pull-left[
+```{r needed-packages, eval=FALSE}
+# R 패키지 설치하기
+install.packages("readxl")
+install.packages("nlme")
+install.packages("msm")
+install.packages("lattice")
+install.packages("metafor")
+```
+]
+
+.pull-right[
+```{r, eval=FALSE}
+# R 패키지 불러오기
+library(readxl)
+library(nlme)
+library(msm)
+library(lattice)
+library(metafor)
+```
+]
+
+```{r}
+# Import the data set from the working directory. ----
+library(readxl)
+    VM <- read_excel(path = "data/VM.xlsx")
+VM # Display data.
+```
+
+---
+
+### .center[본 연구에서 활용된 위계적 다층 자료 구조]
+
+
 
 ---
 class: center, middle
