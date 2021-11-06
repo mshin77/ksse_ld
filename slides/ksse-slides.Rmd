@@ -47,9 +47,9 @@ style_duo_accent(
 
 * 단일대상 다층메타분석 **연구 방법과 적용 실제**   
 
-* **논의** 및 **미래연구를 위한 제언**
+* **논의** 및 **제한점**
 
-.footnote[본 자료는 https://github.com/mshin77/ksse_ld에서 다운로드 가능합니다.]
+.footnote[본 자료는 온라인에서 다운로드 가능합니다. https://github.com/mshin77/ksse_ld.git]
 
 ---
 
@@ -68,8 +68,9 @@ style_duo_accent(
 ---
 
 ### .center[위계적 다층자료 구조]
+- 1수준(반복 측정 자료) 2수준(학생 수준), 3수준(연구 수준)
 
-.center[<img src="figures/fig1.png", width=800px height=400px>]
+.center[<img src="../figures/fig1.png", width=800px height=400px>]
 
 ---
 
@@ -77,7 +78,7 @@ style_duo_accent(
 
 .pull-left[
 예시: [재미난 분수](http://funfraction.net) http://funfraction.net
-  <img src="figures/fig2.png", width=600px height=400px>
+  <img src="../figures/fig2.png", width=600px height=400px>
 ]
 .pull-right[
 
@@ -106,8 +107,8 @@ style_duo_accent(
   - 단일대상 다층메타분석을 활용하여 장애학생을 위한 가상조작물을 활용한 수학 중재의 중재 및 조절 효과 분석
 
 - 연구 질문: 
-  - 장애학생을 위한 가상조작물을 활용한 수학 중재는 어떠한 즉시적인 평균 효과크기 및 변화 추이를 보이는가?
-  - 가상조작물을 활용한 수학 중재의 즉시적인 평균 효과크기는 학생 및 연구 관련 특성에 따라 어떻게 다른가?
+  - 장애학생을 위한 가상조작물을 활용한 수학 중재는 어떠한 즉각적인 평균 효과크기 및 변화 추이를 보이는가?
+  - 가상조작물을 활용한 수학 중재의 즉각적인 평균 효과크기는 학생 및 연구 관련 특성에 따라 어떻게 다른가?
   - 가상조작물을 활용한 수학 중재의 변화 추이는 학생 및 연구 관련 특성에 따라 어떻게 다른가? 
 
 ---
@@ -122,83 +123,128 @@ style_duo_accent(
   - 연구설계: 반전설계(기초선 포함), 대상자간 중다 기초선/중다간헐 설계, 기준변경 설계  
 
 - 자료 탐색: 온라인 [추가 자료 그림 1](https://journals.sagepub.com/doi/suppl/10.1177/00144029211007150) 참고: **총 35편 연구** 포함됨 
-
 - 자료 코딩: 
   - 단일대상 데이터 추출:  GetData Graph Digitizer (GetData Graph Digitizer,
 2013) 웹 어플리케이션 활용 
-  - 학생 관련 변인 코딩: 성별, 학년, 장애명   
+  - 학생 관련 변인 코딩: 성별, 학년, 장애유형   
   - 연구 관련 변인 코딩: 사전훈련 목적, 교수 방법, 개발자, 기기, 가상조작물 유형, 도식 모형
-  - 연구에 대한 질적 평가: 
+  - 연구에 대한 질적 평가: Council for Exceptional Children (2014)
+
+---
+### .center[본 연구에서 활용된 위계적 다층 자료 구조]
+- 데이터 보기: https://osf.io/s6qx4/?show=view
+
+```{r, echo=FALSE}
+# Import the data set from the working directory. ----
+library(readr)
+library(dplyr)
+library(kableExtra)
+VM <- read_csv("../data/VM.csv", show_col_types = FALSE)
+VM_sample <- VM %>%  filter(Study == 'Shin & Bryant (2017)')  
+VM_sample_td <- VM_sample %>% kbl(align = "c") %>% 
+  kable_styling(
+    bootstrap_options = c("striped","hover","condensed"),
+    full_width = F,
+    font_size = 16,
+    fixed_thead = T
+  ) %>% 
+  scroll_box(
+    height = "400px"
+  )
+VM_sample_td
+```
 
 ---
 
-### .center[분석을 위한 R 패키지 설치 및 불러오기]
+### .center[그래프 데이터 보기]
 
 .pull-left[
-```{r needed-packages, eval=FALSE}
-# R 패키지 설치하기
-install.packages("readxl")
-install.packages("nlme")
-install.packages("msm")
-install.packages("lattice")
-install.packages("metafor")
+```{r, echo=FALSE}
+VM_data <- VM %>%  filter(VM$Study_num == 32)
+Intervention_0 <- VM_data %>%
+  dplyr::filter(Intervention== 0) %>%
+  dplyr::group_by(Case) %>%
+  dplyr::mutate(max_session_on_group_by = max(Session))
+
+Phase <- ifelse(as.character(VM_data$Intervention)==0,"Baseline","Intervention")
+
+sced.plot <- ggplot2::ggplot(VM_data, ggplot2::aes(Session, Outcome, color = Phase)) +
+  ggplot2::geom_line() +
+  ggplot2::geom_point() +
+  ggplot2::facet_wrap(~Case, ncol = 1) +
+  ggplot2::geom_vline(data = Intervention_0, ggplot2::aes(xintercept = Intervention_0$max_session_on_group_by + 0.5),
+                      linetype = "dashed") +
+  ggplot2::theme_bw()
+
+sced.plot <- sced.plot %>% plotly::ggplotly()
+sced.plot
 ```
 ]
 
 .pull-right[
-```{r, eval=FALSE}
-# R 패키지 불러오기
-library(readxl)
-library(nlme)
-library(msm)
-library(lattice)
-library(metafor)
-```
+
+살펴보기
+- 비연속적 변화 모형
+
+- 기초선에서의 절편과 기울기
+
+- 중재 첫번째 회기에서의 즉각적인 효과 
+
+- 중재 구간 내 기울기 변화  
 ]
 
+---
+
+### .center[연구 결과 모형 1]
+
+- 고정 효과
+
+.small-code.pull-left[
 ```{r, eval=FALSE}
-# Import the data set from the working directory. ----
-urlfile="https://github.com/mshin77/ksse_ld/blob/master/data/VM.csv"
-    VM <- readr::read_csv(url(urlfile))
-VM # Display data.
+lme(Outcome ~ 1 + Intervention + Intervention_Time, 
+    random  = ~ 1 + Intervention + Intervention_Time | 
+      Study/Case, data = VM, 
+    correlation = corAR1(form = ~ 1 | 
+                           Study/Case/Intervention), 
+    weights = varIdent(form = ~ 1 | Intervention), 
+    method = "REML", 
+    na.action = "na.omit",
+    control = list(opt = "optim")
+)
 ```
+]
+.center[<img src="../figures/mod1.png", width=550px height=300px>]
+
+---
+- 램덤 효과
+.center[<img src="../figures/mod1_plot.png", width=600px height=560px>]
+
+---
+### .center[연구 결과 모형 2, 모형 3]
+.center[<img src="../figures/mod2.3.png", width=450px height=500px>]
+
+---
+### 논의 및 제한점
+- 가상조작물을 활용한 수학 중재는 통계적으로 유의한 즉각적인 중재 효과 및 긍정적인 변화 추이를 나타냈음.
+
+- 즉각적 중재 효과 크기는 학생의 학년, 장애 유형, 개발자, 기기, 가상조작물 유형에 따라 다양한 조절 효과를 보였음.
+
+- 학생 및 연구 관련 변인은 중재 기간 중의 수학 성적(정확성) 변화 추이에 큰 영향을 미치지 않았음.
+
+- 본 연구에서는 단일대상 연구에서 중요하게 여겨지는 시각적인 분석이 이루어지지 않았음.
+
+- 단일대상 연구설계 유형(예: 반전설계, 대상자간 중다 기초선/중다간헐 설계 )에 따른 차별적인 분석이 고려되지 않았음 
 
 ---
 
-### .center[본 연구에서 활용된 위계적 다층 자료 구조]
+### 본 연구의 시사점
 
+- 가상조작물을 활용한 수학 중재는 교육 현장에서 다양한 형태로 활용 가능함 
 
+- 단일대상 연구 설계의 데이터 구조를 기반으로 지속적인 검증이 이루어져야 함  
 
----
-class: center, middle
-Also note the very cool [**matching ggplot themes**](https://pkg.garrickadenbuie.com/xaringanthemer/index.html#matching-ggplot-themes)
+- 오픈사이언스를 기반으로한 투명한 연구 과정을 특수교육 분야에 적용
 
-![](https://pkg.garrickadenbuie.com/xaringanthemer/reference/figures/index-theme_xaringan_demo-1.png)
-
----
-
-# Styling with Apron & Descartes
-
-_avoiding "raw" HTML_
-
-- [Apron and Descartes documentation](https://story.xaprb.com/slides/adirondack/#1)
-    - [Slide layouts (**Apron**)](https://story.xaprb.com/slides/adirondack/#5)
-    - [Image & element position / colors (**Descartes**)](https://story.xaprb.com/slides/adirondack/#33)
-        - [descartes.less](https://github.com/xaprb/story/blob/master/static/css/descartes.less)
-
-    
-### AND
-
-- **Tachyons** -- classes to control formatting and CSS 
-    - [See XaringanExtra # tachyons](https://pkg.garrickadenbuie.com/xaringanExtra/#/tachyons)
-
-
---
-
-In these cases you must be comfortable importing the appropriate CSS sheets and referencing them in the YAML header.  Not hard, but beyond the focus of this workshop.
-
-- [apron.css](https://github.com/xaprb/story/blob/master/static/css/apron.css)
-- [descartes.css](https://github.com/xaprb/story/blob/master/static/css/descartes.css)
-- [tachyons.min.css](https://raw.githubusercontent.com/xaprb/story/master/static/css/tachyons.min.css)
+- 후속 연구자들이 반복검증할 수 있도록 공공 자료 마련 및 실천 
 
 
