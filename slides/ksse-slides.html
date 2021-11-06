@@ -113,8 +113,6 @@ class: center, middle, inverse, title-slide
   - 연구 관련 변인 코딩: 사전훈련 목적, 교수 방법, 개발자, 기기, 가상조작물 유형, 도식 모형
   - 연구에 대한 질적 평가: 
 
-- 자료 분석:
- 
 ---
 
 ### .center[분석을 위한 R 패키지 설치 및 불러오기]
@@ -142,6 +140,14 @@ library(lattice)
 library(metafor)
 ```
 ]
+
+
+```r
+# Import the data set from the working directory. ----
+urlfile="https://github.com/mshin77/ksse_ld/blob/master/data/VM.csv"
+    VM &lt;- readr::read_csv(url(urlfile))
+VM # Display data.
+```
 
 ---
 

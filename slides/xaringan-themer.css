@@ -271,10 +271,10 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 
 /* Extra CSS */
 .small {
-  font-size: .78rem;
+  font-size: 1.5rem;
 }
 .big {
-  font-size: 1.2rem;
+  font-size: 3rem;
 }
 .small-code pre code {
   font-size: .72rem;

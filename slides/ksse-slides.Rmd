@@ -156,10 +156,10 @@ library(metafor)
 ```
 ]
 
-```{r}
+```{r, eval=FALSE}
 # Import the data set from the working directory. ----
-library(readxl)
-    VM <- read_excel(path = "data/VM.xlsx")
+urlfile="https://github.com/mshin77/ksse_ld/blob/master/data/VM.csv"
+    VM <- readr::read_csv(url(urlfile))
 VM # Display data.
 ```
 
