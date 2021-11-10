@@ -132,33 +132,31 @@ style_duo_accent(
 
 ---
 ### .center[본 연구에서 활용된 위계적 다층 자료 구조]
-- 데이터 보기: https://osf.io/s6qx4/?show=view
 
 ```{r, echo=FALSE}
-# Import the data set from the working directory. ----
 library(readr)
-library(dplyr)
 library(kableExtra)
+# Import the data set from the working directory. ----
 data <- read_csv("../data/data.csv", show_col_types = FALSE)
-VM_sample_td <- data %>% kbl(align = "c") %>% 
-  kable_styling(
+VM_sample_td <- data %>% kableExtra::kbl(align = "c") %>% 
+  kableExtra::kable_styling(
     bootstrap_options = c("striped","hover","condensed"),
     full_width = F,
     font_size = 16,
     fixed_thead = T
   ) %>% 
-  scroll_box(
-    height = "400px"
-  )
+  kableExtra::scroll_box(height = "400px")
 VM_sample_td
 ```
 
+- 데이터 보기: https://osf.io/s6qx4/?show=view
 ---
 
 ### .center[그래프 데이터 보기]
 
 .pull-left[
 ```{r, echo=FALSE}
+data <- read_csv("../data/data.csv", show_col_types = FALSE)
 Intervention_0 <- data %>%
   dplyr::filter(Intervention== 0) %>%
   dplyr::group_by(Case) %>%
@@ -211,7 +209,7 @@ lme(Outcome ~ 1 + Intervention + Intervention_Time,
 )
 ```
 ]
-.center[<img src="../figures/mod1.png", width=550px height=300px>]
+.center[<img src="figures/mod1.png", width=550px height=300px>]
 
 ---
 - 램덤 효과
