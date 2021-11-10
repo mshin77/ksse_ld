@@ -139,9 +139,8 @@ style_duo_accent(
 library(readr)
 library(dplyr)
 library(kableExtra)
-VM <- read_csv("../data/VM.csv", show_col_types = FALSE)
-VM_sample <- VM %>%  filter(Study == 'Shin & Bryant (2017)')  
-VM_sample_td <- VM_sample %>% kbl(align = "c") %>% 
+data <- read_csv("../data/data.csv", show_col_types = FALSE)
+VM_sample_td <- data %>% kbl(align = "c") %>% 
   kable_styling(
     bootstrap_options = c("striped","hover","condensed"),
     full_width = F,
@@ -160,15 +159,14 @@ VM_sample_td
 
 .pull-left[
 ```{r, echo=FALSE}
-VM_data <- VM %>%  filter(VM$Study_num == 32)
-Intervention_0 <- VM_data %>%
+Intervention_0 <- data %>%
   dplyr::filter(Intervention== 0) %>%
   dplyr::group_by(Case) %>%
   dplyr::mutate(max_session_on_group_by = max(Session))
 
-Phase <- ifelse(as.character(VM_data$Intervention)==0,"Baseline","Intervention")
+Phase <- ifelse(as.character(data$Intervention)==0,"Baseline","Intervention")
 
-sced.plot <- ggplot2::ggplot(VM_data, ggplot2::aes(Session, Outcome, color = Phase)) +
+sced.plot <- ggplot2::ggplot(data, ggplot2::aes(Session, Outcome, color = Phase)) +
   ggplot2::geom_line() +
   ggplot2::geom_point() +
   ggplot2::facet_wrap(~Case, ncol = 1) +
