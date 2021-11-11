@@ -49,6 +49,8 @@ style_duo_accent(
 
 * **논의** 및 **제한점**
 
+* 연구의 시사점
+
 .footnote[본 자료는 온라인에서 다운로드 가능합니다. https://github.com/mshin77/ksse_ld.git]
 
 ---
@@ -70,7 +72,8 @@ style_duo_accent(
 ### .center[위계적 다층자료 구조]
 - 1수준(반복 측정 자료) 2수준(학생 수준), 3수준(연구 수준)
 
-.center[<img src="../figures/fig1.png", width=800px height=400px>]
+.center[<img src="figures/fig1.png" height="300px" width="500px" />]
+
 
 ---
 
@@ -78,7 +81,9 @@ style_duo_accent(
 
 .pull-left[
 예시: [재미난 분수](http://funfraction.net) http://funfraction.net
-  <img src="../figures/fig2.png", width=600px height=400px>
+
+.center[<img src="figures/fig2.png" height="200px" width="600px" />]
+
 ]
 .pull-right[
 
@@ -134,18 +139,21 @@ style_duo_accent(
 ### .center[본 연구에서 활용된 위계적 다층 자료 구조]
 
 ```{r, echo=FALSE}
+# Import the data set from the working directory. ----
 library(readr)
 library(kableExtra)
-# Import the data set from the working directory. ----
-data <- read_csv("../data/data.csv", show_col_types = FALSE)
-VM_sample_td <- data %>% kableExtra::kbl(align = "c") %>% 
-  kableExtra::kable_styling(
+VM <- read_csv("data/data.csv", show_col_types = FALSE)
+VM_sample <- VM   
+VM_sample_td <- VM_sample %>% kbl(align = "c") %>% 
+  kable_styling(
     bootstrap_options = c("striped","hover","condensed"),
     full_width = F,
     font_size = 16,
     fixed_thead = T
   ) %>% 
-  kableExtra::scroll_box(height = "400px")
+  scroll_box(
+    height = "400px"
+  )
 VM_sample_td
 ```
 
@@ -156,15 +164,15 @@ VM_sample_td
 
 .pull-left[
 ```{r, echo=FALSE}
-data <- read_csv("../data/data.csv", show_col_types = FALSE)
-Intervention_0 <- data %>%
+VM_data <- VM 
+Intervention_0 <- VM_data %>%
   dplyr::filter(Intervention== 0) %>%
   dplyr::group_by(Case) %>%
   dplyr::mutate(max_session_on_group_by = max(Session))
 
-Phase <- ifelse(as.character(data$Intervention)==0,"Baseline","Intervention")
+Phase <- ifelse(as.character(VM_data$Intervention)==0,"Baseline","Intervention")
 
-sced.plot <- ggplot2::ggplot(data, ggplot2::aes(Session, Outcome, color = Phase)) +
+sced.plot <- ggplot2::ggplot(VM_data, ggplot2::aes(Session, Outcome, color = Phase)) +
   ggplot2::geom_line() +
   ggplot2::geom_point() +
   ggplot2::facet_wrap(~Case, ncol = 1) +
@@ -209,16 +217,17 @@ lme(Outcome ~ 1 + Intervention + Intervention_Time,
 )
 ```
 ]
-.center[<img src="figures/mod1.png", width=550px height=300px>]
 
+.small-code.pull-right[
+<img src="figures/mod1.png" height="270px" width="450px" />
+]
 ---
 - 램덤 효과
-.center[<img src="../figures/mod1_plot.png", width=600px height=560px>]
+.center[<img src="figures/mod1_plot.png" height="550px" width="600px" />]
 
 ---
 ### .center[연구 결과 모형 2, 모형 3]
-.center[<img src="../figures/mod2.3.png", width=450px height=500px>]
-
+.center[<img src="figures/mod2.3.png" height="500px" width="400px" />]
 ---
 ### 논의 및 제한점
 - 가상조작물을 활용한 수학 중재는 통계적으로 유의한 즉각적인 중재 효과 및 긍정적인 변화 추이를 나타냈음.
@@ -233,7 +242,7 @@ lme(Outcome ~ 1 + Intervention + Intervention_Time,
 
 ---
 
-### 본 연구의 시사점
+### 연구의 시사점
 
 - 가상조작물을 활용한 수학 중재는 교육 현장에서 다양한 형태로 활용 가능함 
 
