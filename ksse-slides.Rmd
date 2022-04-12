@@ -219,7 +219,7 @@ lme(Outcome ~ 1 + Intervention + Intervention_Time,
 ]
 
 .small-code.pull-right[
-<img src="figures/mod1.png" height="270px" width="450px" />
+<img src="figures/mod1.PNG" height="270px" width="450px" />
 ]
 ---
 - 램덤 효과
@@ -227,7 +227,7 @@ lme(Outcome ~ 1 + Intervention + Intervention_Time,
 
 ---
 ### .center[연구 결과 모형 2, 모형 3]
-.center[<img src="figures/mod2.3.png" height="500px" width="400px" />]
+.center[<img src="figures/mod2.3.PNG" height="500px" width="400px" />]
 ---
 ### 논의 및 제한점
 - 가상조작물을 활용한 수학 중재는 통계적으로 유의한 즉각적인 중재 효과 및 긍정적인 변화 추이를 나타냈음.
